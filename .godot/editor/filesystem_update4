@@ -1,0 +1,4 @@
+res://Scenes/Worlds/world.tscn
+res://Scenes/UI/main_menu.tscn
+res://Scenes/UI/character_select.tscn
+res://Scripts/multiplayer_manager.gd

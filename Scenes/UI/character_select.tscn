@@ -1,0 +1,70 @@
+[gd_scene load_steps=3 format=3 uid="uid://dljmrs8625o0g"]
+
+[ext_resource type="Texture2D" uid="uid://d1oaor6h30tul" path="res://Characters/Helmet-master-sheet.png" id="1_sqqkx"]
+[ext_resource type="Texture2D" uid="uid://vmeeryp4fjtw" path="res://Characters/Sprite-Gunslinger-Sheet-V4.png" id="2_jn0kt"]
+
+[node name="CharacterSelect" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Choose" type="Label" parent="."]
+layout_mode = 0
+offset_left = 149.0
+offset_top = 48.0
+offset_right = 1014.0
+offset_bottom = 142.0
+theme_override_font_sizes/font_size = 66
+text = "CHOOSE YOUR CHARACTER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Helmet" type="Label" parent="."]
+layout_mode = 0
+offset_left = 312.0
+offset_top = 196.0
+offset_right = 433.0
+offset_bottom = 243.0
+theme_override_font_sizes/font_size = 31
+text = "HELMET"
+
+[node name="Button" type="Button" parent="Helmet"]
+layout_mode = 0
+offset_left = -1.0
+offset_right = 131.0
+offset_bottom = 211.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Helmet"]
+texture_filter = 1
+position = Vector2(57, 125)
+scale = Vector2(9.06, 9.06)
+texture = ExtResource("1_sqqkx")
+hframes = 6
+vframes = 6
+
+[node name="Helmet2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 709.0
+offset_top = 196.0
+offset_right = 906.0
+offset_bottom = 243.0
+theme_override_font_sizes/font_size = 31
+text = "GUNSLINGER"
+
+[node name="Button2" type="Button" parent="Helmet2"]
+layout_mode = 0
+offset_left = -3.0
+offset_right = 202.0
+offset_bottom = 211.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Helmet2"]
+texture_filter = 1
+position = Vector2(102, 31)
+scale = Vector2(9.06, 9.06)
+texture = ExtResource("2_jn0kt")
+hframes = 8
+vframes = 10
+frame = 25

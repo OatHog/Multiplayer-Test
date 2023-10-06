@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://2ffld781fq8g"]
+
+[ext_resource type="Texture2D" uid="uid://vmeeryp4fjtw" path="res://Characters/Sprite-Gunslinger-Sheet-V4.png" id="1_ejlgv"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mku4a"]
+radius = 3.0
+height = 12.0
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -10)
+texture = ExtResource("1_ejlgv")
+hframes = 8
+vframes = 10
+frame = 25
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_mku4a")

@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0h73mu8b4nlx"]
+
+[ext_resource type="Texture2D" uid="uid://d1oaor6h30tul" path="res://Characters/Helmet-master-sheet.png" id="1_dbhpj"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uivmc"]
+radius = 5.0
+height = 16.0
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_dbhpj")
+hframes = 6
+vframes = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_uivmc")

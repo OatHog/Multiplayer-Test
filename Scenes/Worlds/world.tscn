@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://ctpc5ql2mfs34"]
+
+[ext_resource type="PackedScene" uid="uid://c0cm342kobbuv" path="res://Scenes/UI/main_menu.tscn" id="1_euwqf"]
+[ext_resource type="PackedScene" uid="uid://bmcmocll8hy7x" path="res://Scenes/Backend/multiplayer_manager.tscn" id="1_stsfo"]
+[ext_resource type="Texture2D" uid="uid://brup85gid1d3d" path="res://icon.svg" id="2_hsdrq"]
+[ext_resource type="PackedScene" uid="uid://dljmrs8625o0g" path="res://Scenes/UI/character_select.tscn" id="3_dbmqg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cmqmd"]
+size = Vector2(1150, 79)
+
+[node name="World" type="Node"]
+
+[node name="MultiplayerManager" parent="." instance=ExtResource("1_stsfo")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Main Menu" parent="CanvasLayer" instance=ExtResource("1_euwqf")]
+
+[node name="CharacterSelect" parent="CanvasLayer" instance=ExtResource("3_dbmqg")]
+visible = false
+
+[node name="Platform" type="RigidBody2D" parent="."]
+visible = false
+collision_layer = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Platform"]
+position = Vector2(575.5, 322)
+scale = Vector2(8.99219, 0.625)
+texture = ExtResource("2_hsdrq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform"]
+position = Vector2(575, 321.5)
+shape = SubResource("RectangleShape2D_cmqmd")
+
+[node name="SpawnPoint" type="Marker2D" parent="Platform"]
+position = Vector2(334, 256)
+
+[connection signal="pressed" from="CanvasLayer/Main Menu/Host" to="MultiplayerManager" method="_on_host_pressed"]
+[connection signal="pressed" from="CanvasLayer/Main Menu/Join" to="MultiplayerManager" method="_on_join_pressed"]
+
+[editable path="CanvasLayer/Main Menu"]
+[editable path="CanvasLayer/CharacterSelect"]
