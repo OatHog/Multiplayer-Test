@@ -15,12 +15,11 @@ size = Vector2(1150, 79)
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Main Menu" parent="CanvasLayer" instance=ExtResource("1_euwqf")]
+visible = false
 
 [node name="CharacterSelect" parent="CanvasLayer" instance=ExtResource("3_dbmqg")]
-visible = false
 
-[node name="Platform" type="RigidBody2D" parent="."]
-visible = false
+[node name="Platform" type="StaticBody2D" parent="."]
 collision_layer = 4
 
 [node name="Sprite2D" type="Sprite2D" parent="Platform"]
@@ -35,8 +34,18 @@ shape = SubResource("RectangleShape2D_cmqmd")
 [node name="SpawnPoint" type="Marker2D" parent="Platform"]
 position = Vector2(334, 256)
 
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Scenes/Characters/helmet.tscn", "res://Scenes/Characters/gunslinger.tscn")
+spawn_path = NodePath("..")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+
 [connection signal="pressed" from="CanvasLayer/Main Menu/Host" to="MultiplayerManager" method="_on_host_pressed"]
 [connection signal="pressed" from="CanvasLayer/Main Menu/Join" to="MultiplayerManager" method="_on_join_pressed"]
+[connection signal="pressed" from="CanvasLayer/Main Menu/Proceed" to="MultiplayerManager" method="_on_proceed_pressed"]
+[connection signal="pressed" from="CanvasLayer/CharacterSelect/Helmet/HelmetButton" to="MultiplayerManager" method="_on_helmet_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/CharacterSelect/Gunslinger/GunslingerButton" to="MultiplayerManager" method="_on_gunslinger_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/CharacterSelect/StartButton" to="MultiplayerManager" method="_on_start_button_pressed"]
 
 [editable path="CanvasLayer/Main Menu"]
 [editable path="CanvasLayer/CharacterSelect"]

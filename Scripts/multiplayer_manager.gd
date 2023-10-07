@@ -6,6 +6,12 @@ extends Node
 @onready var host_label =  $"../CanvasLayer/Main Menu/HostLabel"
 @onready var address_warning_label = $"../CanvasLayer/Main Menu/AddressWarningLabel"
 @onready var name_warning_label = $"../CanvasLayer/Main Menu/NameWarningLabel"
+
+@onready var character_select = $"../CanvasLayer/CharacterSelect"
+@onready var helmet_button = $"../CanvasLayer/CharacterSelect/Helmet/HelmetButton"
+@onready var gunslinger_button = $"../CanvasLayer/CharacterSelect/Gunslinger/GunslingerButton"
+@onready var start_button = $"../CanvasLayer/CharacterSelect/StartButton"
+
 @onready var platform = $"../Platform"
 
 # Multiplayer related variables
@@ -20,6 +26,7 @@ func _ready():
 	host_label.hide()
 	address_warning_label.hide()
 	name_warning_label.hide()
+	character_select.hide()
 
 func _input(event):
 	if event.is_action_pressed("v"):
@@ -54,8 +61,7 @@ func upnp_setup():
 	print("Success! Join Address: %s" % upnp.query_external_address())
 
 func connected_to_server():
-	send_player_information.rpc_id(1, name_entry.text, multiplayer.get_unique_id(), "")
-#	print(GameManager.players[multiplayer.get_unique_id()])
+	send_player_information.rpc_id(1, name_entry.text, multiplayer.get_unique_id(), "Helmet")
 
 func _on_host_pressed():
 	enet_peer.create_server(PORT, 5)
@@ -98,6 +104,55 @@ func _on_join_pressed():
 func server_connection_failed():
 	print("connection failed.")
 
+func _on_proceed_pressed():
+	start_lobby.rpc()
 
+@rpc("any_peer", "call_local")
 func start_lobby():
-	pass
+	main_menu.hide()
+	character_select.show()
+
+# Handle character select
+@rpc("any_peer", "call_local")
+func add_character(peer_id: int, character: String):
+	if GameManager.players[peer_id].character == "Helmet":
+		var helmet = helmet.instantiate()
+		helmet.name = str(peer_id)
+		add_child(helmet)
+		helmet.global_position = $"../Platform/SpawnPoint".global_position
+	
+	if GameManager.players[peer_id].character == "Gunslinger":
+		var gunslinger = gunslinger.instantiate()
+		gunslinger.name = str(peer_id)
+		add_child(gunslinger)
+		gunslinger.global_position = $"../Platform/SpawnPoint".global_position
+
+@rpc("any_peer", "call_local")
+func send_helmet_type():
+	GameManager.players[multiplayer.get_unique_id()].character = "Helmet"
+
+@rpc("any_peer", "call_local")
+func send_gunslinger_type(peer_id):
+	GameManager.players[peer_id].character = "Gunslinger"
+
+@rpc("any_peer", "call_local")
+func _on_helmet_button_pressed():
+	send_helmet_type.rpc()
+	print(GameManager.players)
+	helmet_button.disabled = true
+	gunslinger_button.disabled = false
+
+@rpc("any_peer", "call_local")
+func _on_gunslinger_button_pressed():
+	var peer_id = multiplayer.get_unique_id()
+	send_gunslinger_type.rpc(peer_id)
+	print(GameManager.players)
+	gunslinger_button.disabled = true
+	helmet_button.disabled = false
+
+@rpc("any_peer", "call_local")
+func _on_start_button_pressed():
+	var peer_id = multiplayer.get_unique_id()
+	add_character.rpc(peer_id, GameManager.players[peer_id].character)
+	character_select.hide()
+	platform.show()

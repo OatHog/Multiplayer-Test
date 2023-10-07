@@ -2,3 +2,7 @@ res://Scenes/Worlds/world.tscn
 res://Scenes/UI/main_menu.tscn
 res://Scenes/UI/character_select.tscn
 res://Scripts/multiplayer_manager.gd
+res://Scenes/Characters/helmet.tscn
+res://Scenes/Characters/gunslinger.tscn
+res://Scenes/Characters/gunslinger.gd
+res://Scenes/Characters/helmet.gd

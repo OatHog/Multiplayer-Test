@@ -1,5 +1,9 @@
-Label
+MultiplayerSynchronizer
+StaticBody2D
+MultiplayerSpawner
+Camera2D
 Button
+Label
 Sprite2D
 LineEdit
 Node

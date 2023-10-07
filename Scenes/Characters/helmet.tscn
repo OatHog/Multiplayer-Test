@@ -1,12 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://b0h73mu8b4nlx"]
+[gd_scene load_steps=5 format=3 uid="uid://b0h73mu8b4nlx"]
 
 [ext_resource type="Texture2D" uid="uid://d1oaor6h30tul" path="res://Characters/Helmet-master-sheet.png" id="1_dbhpj"]
+[ext_resource type="Script" path="res://Scenes/Characters/helmet.gd" id="1_rf6fy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uivmc"]
 radius = 5.0
 height = 16.0
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_1wikb"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/sync = true
+properties/0/watch = false
+
 [node name="CharacterBody2D" type="CharacterBody2D"]
+collision_mask = 4
+script = ExtResource("1_rf6fy")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -16,3 +25,9 @@ vframes = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_uivmc")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_1wikb")
